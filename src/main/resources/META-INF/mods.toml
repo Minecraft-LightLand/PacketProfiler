@@ -1,0 +1,25 @@
+modLoader="javafml"
+loaderVersion="[40,)"
+license="LGPL v2.1"
+[[mods]]
+modId="packetprofiler"
+version="${file.jarVersion}" #mandatory
+displayName="Packet Profiler" #mandatory
+logoFile="packetprofiler.png" #optional
+credits="Thanks lcy0x1" #optional
+authors="lcy0x1 and LightLand team" #optional
+description='''
+A profiler mod that profide statistics on packet flow
+'''
+[[dependencies.packetprofiler]]
+    modId="forge"
+    mandatory=true
+    versionRange="[40.1.60,)"
+    ordering="NONE"
+    side="BOTH"
+[[dependencies.packetprofiler]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.18.2,1.19)"
+    ordering="NONE"
+    side="BOTH"

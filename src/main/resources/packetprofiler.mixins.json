@@ -1,0 +1,16 @@
+{
+  "required": true,
+  "priority": 1000,
+  "package": "dev.xkmc.packetprofiler.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "refmap": "packetprofiler.refmap.json",
+  "mixins": [
+	"ConnectionMixin"
+  ],
+  "client": [
+  ],
+  "injectors": {
+	"defaultRequire": 1
+  },
+  "minVersion": "0.8"
+}
