@@ -6,7 +6,7 @@ import com.mojang.brigadier.context.CommandContext;
 import dev.xkmc.packetprofiler.profiler.PacketRecorder;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
-import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.PacketFlow;
 import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -30,7 +30,7 @@ public class ServerCommands {
 		int hrs = min / 60;
 		String str = String.format("%02d:%02d:%02d", hrs % 24, min % 60, sec % 60);
 		String side = flow == PacketFlow.SERVERBOUND ? "server" : "client";
-		ctx.getSource().sendSuccess(new TextComponent("Start profiling " + side + " with time " + str), true);
+		ctx.getSource().sendSuccess(Component.literal("Start profiling " + side + " with time " + str), true);
 		return 1;
 	}
 

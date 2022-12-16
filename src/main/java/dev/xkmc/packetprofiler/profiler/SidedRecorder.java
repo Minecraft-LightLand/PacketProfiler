@@ -1,5 +1,6 @@
 package dev.xkmc.packetprofiler.profiler;
 
+import dev.xkmc.packetprofiler.statmap.StatMap;
 import net.minecraft.commands.CommandSourceStack;
 
 public class SidedRecorder {

@@ -1,6 +1,8 @@
 package dev.xkmc.packetprofiler.profiler;
 
 import dev.xkmc.packetprofiler.init.PacketProfiler;
+import dev.xkmc.packetprofiler.statmap.Stat;
+import dev.xkmc.packetprofiler.statmap.StatMap;
 import it.unimi.dsi.fastutil.ints.IntComparators;
 import net.minecraft.network.protocol.PacketFlow;
 import net.minecraftforge.fml.loading.FMLPaths;
@@ -70,7 +72,7 @@ public class ReportGenerator {
 	}
 
 	private static List<Map.Entry<String, Stat>> sort(StatMap stat, ToIntFunction<Stat> func) {
-		return stat.map.entrySet().stream()
+		return stat.packetMap.entrySet().stream()
 				.sorted((a, b) -> IntComparators.OPPOSITE_COMPARATOR
 						.compare(func.applyAsInt(a.getValue()), func.applyAsInt(b.getValue()))).toList();
 	}

@@ -14,12 +14,12 @@ A profiler mod that profide statistics on packet flow
 [[dependencies.packetprofiler]]
     modId="forge"
     mandatory=true
-    versionRange="[40.1.60,)"
+    versionRange="[43.1.0,)"
     ordering="NONE"
     side="BOTH"
 [[dependencies.packetprofiler]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.18.2,1.19)"
+    versionRange="[1.19.1,1.19.2)"
     ordering="NONE"
     side="BOTH"

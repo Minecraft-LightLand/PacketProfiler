@@ -105,6 +105,15 @@ repositories {
 dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
     annotationProcessor "org.spongepowered:mixin:${mixin_version}:processor"
+    implementation fg.deobf("dev.xkmc.l2library:l2library:1.8.5")
+    runtimeOnly fg.deobf("dev.xkmc.l2backpack:l2backpack:1.5.4")
+    implementation fg.deobf('curse.maven:create-328085:4174330')
+    implementation fg.deobf("mezz.jei:jei-${jei_minecraft_version}:${jei_version}")
+    implementation fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}")
+    implementation fg.deobf('curse.maven:appleskin-248787:3872808')
+    runtimeOnly fg.deobf('curse.maven:wthit-forge-455982:3947982')
+    runtimeOnly fg.deobf('curse.maven:badpackets-615134:3903799')
+    runtimeOnly fg.deobf('curse.maven:storage-drawers-223852:3884263')
 
 }
 

@@ -3,9 +3,8 @@ package dev.xkmc.packetprofiler.mixin;
 import dev.xkmc.packetprofiler.profiler.PacketRecorder;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
-import io.netty.util.concurrent.Future;
-import io.netty.util.concurrent.GenericFutureListener;
 import net.minecraft.network.Connection;
+import net.minecraft.network.PacketSendListener;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.PacketFlow;
 import org.spongepowered.asm.mixin.Final;
@@ -29,13 +28,13 @@ public abstract class ConnectionMixin {
 	public abstract Channel channel();
 
 	@Inject(at = @At("HEAD"), method = "sendPacket")
-	public void packetprofiler_observeSentPacket(Packet<?> packet, GenericFutureListener<? extends Future<? super Void>> listener, CallbackInfo ci) {
-		PacketRecorder.recordSent(packet, receiving);
+	public void packetprofiler_observeSentPacket(Packet<?> packet, PacketSendListener p_243246_, CallbackInfo ci) {
+		PacketRecorder.recordSent(receiving).ifPresent(e -> e.handle(packet));
 	}
 
 	@Inject(at = @At("HEAD"), method = "channelRead0(Lio/netty/channel/ChannelHandlerContext;Lnet/minecraft/network/protocol/Packet;)V")
 	public void packetprofiler_observeReceivedPacket(ChannelHandlerContext context, Packet<?> packet, CallbackInfo ci) {
-		PacketRecorder.recordReceived(packet, receiving);
+		PacketRecorder.recordReceived(receiving).ifPresent(e -> e.handle(packet));
 	}
 
 }
