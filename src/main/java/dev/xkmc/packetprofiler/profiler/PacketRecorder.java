@@ -1,5 +1,6 @@
 package dev.xkmc.packetprofiler.profiler;
 
+import dev.xkmc.packetprofiler.init.PacketProfiler;
 import dev.xkmc.packetprofiler.statmap.StatMap;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.network.chat.Component;
@@ -14,8 +15,12 @@ import java.util.Optional;
 
 public class PacketRecorder {
 
-	private static SidedRecorder server, client;
+	public static SidedRecorder server, client;
 
+	public static void initAll() {
+		server = new SidedRecorder(Integer.MAX_VALUE, PacketProfiler.LOGGER::info);
+		client = new SidedRecorder(Integer.MAX_VALUE, PacketProfiler.LOGGER::info);
+	}
 
 	public static Optional<StatMap> recordSent(NetworkDirection dire) {
 		return recordSent(dire.getOriginationSide().isServer() ? PacketFlow.SERVERBOUND : PacketFlow.CLIENTBOUND);
@@ -53,9 +58,17 @@ public class PacketRecorder {
 
 	public static void startProfiling(PacketFlow side, int time, CommandSourceStack source) {
 		if (side == PacketFlow.SERVERBOUND) {
-			server = new SidedRecorder(time, source);
+			if (server != null) {
+				String str = ReportGenerator.generate(server, PacketFlow.SERVERBOUND, true);
+				PacketProfiler.LOGGER.error("Server profiler already exists. Terminating. Saved at " + str);
+			}
+			server = new SidedRecorder(time, e -> source.sendSuccess(() -> Component.literal(e), true));
 		} else {
-			client = new SidedRecorder(time, source);
+			if (client != null) {
+				String str = ReportGenerator.generate(server, PacketFlow.CLIENTBOUND, true);
+				PacketProfiler.LOGGER.error("Client profiler already exists. Terminating. Saved at " + str);
+			}
+			client = new SidedRecorder(time, e -> source.sendSuccess(() -> Component.literal(e), true));
 		}
 	}
 
@@ -66,7 +79,7 @@ public class PacketRecorder {
 			server.time--;
 			if (server.time == 0) {
 				String str = ReportGenerator.generate(server, PacketFlow.SERVERBOUND, true);
-				server.callback.sendSuccess(Component.literal("Profiling Complete, saved at" + str), true);
+				server.callback.accept("Profiling Complete, saved at" + str);
 				server = null;
 			}
 		}
@@ -80,7 +93,7 @@ public class PacketRecorder {
 			client.time--;
 			if (client.time == 0) {
 				String str = ReportGenerator.generate(client, PacketFlow.CLIENTBOUND, true);
-				client.callback.sendSuccess(Component.literal("Profiling Complete, saved at " + str), true);
+				client.callback.accept("Profiling Complete, saved at " + str);
 				client = null;
 			}
 		}

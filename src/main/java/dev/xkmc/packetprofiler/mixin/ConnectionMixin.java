@@ -1,7 +1,6 @@
 package dev.xkmc.packetprofiler.mixin;
 
 import dev.xkmc.packetprofiler.profiler.PacketRecorder;
-import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import net.minecraft.network.Connection;
 import net.minecraft.network.PacketSendListener;
@@ -18,23 +17,17 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class ConnectionMixin {
 
 	@Shadow
-	private Channel channel;
-
-	@Shadow
 	@Final
 	private PacketFlow receiving;
 
-	@Shadow
-	public abstract Channel channel();
-
 	@Inject(at = @At("HEAD"), method = "sendPacket")
 	public void packetprofiler_observeSentPacket(Packet<?> packet, PacketSendListener p_243246_, CallbackInfo ci) {
-		PacketRecorder.recordSent(receiving).ifPresent(e -> e.handle(packet));
+		PacketRecorder.recordSent(receiving).ifPresent(e -> e.handle(receiving, packet));
 	}
 
 	@Inject(at = @At("HEAD"), method = "channelRead0(Lio/netty/channel/ChannelHandlerContext;Lnet/minecraft/network/protocol/Packet;)V")
 	public void packetprofiler_observeReceivedPacket(ChannelHandlerContext context, Packet<?> packet, CallbackInfo ci) {
-		PacketRecorder.recordReceived(receiving).ifPresent(e -> e.handle(packet));
+		PacketRecorder.recordReceived(receiving).ifPresent(e -> e.handle(null, packet));
 	}
 
 }

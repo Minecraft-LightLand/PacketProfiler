@@ -30,7 +30,7 @@ public class ServerCommands {
 		int hrs = min / 60;
 		String str = String.format("%02d:%02d:%02d", hrs % 24, min % 60, sec % 60);
 		String side = flow == PacketFlow.SERVERBOUND ? "server" : "client";
-		ctx.getSource().sendSuccess(Component.literal("Start profiling " + side + " with time " + str), true);
+		ctx.getSource().sendSuccess(() -> Component.literal("Start profiling " + side + " with time " + str), true);
 		return 1;
 	}
 

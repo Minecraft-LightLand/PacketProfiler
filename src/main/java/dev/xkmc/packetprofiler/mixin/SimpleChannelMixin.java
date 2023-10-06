@@ -19,7 +19,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(SimpleChannel.class)
 public abstract class SimpleChannelMixin {
 
-	@Shadow
+	@Shadow(remap = false)
 	@Final
 	private NetworkInstance instance;
 
