@@ -6,6 +6,9 @@
   "refmap": "packetprofiler.refmap.json",
   "mixins": [
 	"ConnectionMixin",
+	"ForgeHooksMixin",
+	"ForgeInternalHandlerAccessor",
+	"LootModifierManagerAccessor",
 	"SimpleChannelMixin"
   ],
   "client": [

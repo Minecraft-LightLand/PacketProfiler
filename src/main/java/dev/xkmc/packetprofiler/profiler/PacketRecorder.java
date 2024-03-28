@@ -72,9 +72,7 @@ public class PacketRecorder {
 		}
 	}
 
-	@SubscribeEvent
-	public static void onServerTick(TickEvent.ServerTickEvent event) {
-		if (event.phase == TickEvent.Phase.START) return;
+	public static void onServerTick() {
 		if (server != null && server.time > 0) {
 			server.time--;
 			if (server.time == 0) {
