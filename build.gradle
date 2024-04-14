@@ -110,8 +110,6 @@ dependencies {
     runtimeOnly fg.deobf("curse.maven:create-328085:4762216")
     runtimeOnly fg.deobf("mezz.jei:jei-${jei_minecraft_version}:${jei_version}")
     runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}")
-    runtimeOnly fg.deobf("zip.local:convivium:34")
-    runtimeOnly fg.deobf("zip.local:caupona:157")
     //implementation fg.deobf('curse.maven:appleskin-248787:3872808')
     //runtimeOnly fg.deobf('curse.maven:wthit-forge-455982:3947982')
     //runtimeOnly fg.deobf('curse.maven:badpackets-615134:3903799')
