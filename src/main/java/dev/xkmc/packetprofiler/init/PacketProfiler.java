@@ -22,7 +22,7 @@ public class PacketProfiler {
 	public static final Logger LOGGER = LogManager.getLogger();
 
 	public static boolean testPacket() {
-		return FMLEnvironment.dist == Dist.DEDICATED_SERVER;
+		return false; // FMLEnvironment.dist == Dist.DEDICATED_SERVER;
 	}
 
 	public PacketProfiler() {
@@ -32,7 +32,6 @@ public class PacketProfiler {
 		MinecraftForge.EVENT_BUS.register(PacketRecorder.class);
 		DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> PPClient.onCtorClient(bus));
 		MinecraftForge.EVENT_BUS.register(this);
-
 	}
 
 	@SubscribeEvent

@@ -1,6 +1,6 @@
 package dev.xkmc.packetprofiler.mixin;
 
-import dev.xkmc.packetprofiler.loot.LootDebugger;
+import dev.xkmc.packetprofiler.profiler.LootDebugger;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;

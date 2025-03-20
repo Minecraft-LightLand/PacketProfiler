@@ -1,4 +1,4 @@
-package dev.xkmc.packetprofiler.loot;
+package dev.xkmc.packetprofiler.profiler;
 
 import com.mojang.brigadier.context.CommandContext;
 import dev.xkmc.packetprofiler.init.PacketProfiler;

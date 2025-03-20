@@ -3,9 +3,9 @@ package dev.xkmc.packetprofiler.init;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
-import dev.xkmc.packetprofiler.loot.LootDebugger;
+import dev.xkmc.packetprofiler.profiler.LootDebugger;
+import dev.xkmc.packetprofiler.profiler.McFunctionFinder;
 import dev.xkmc.packetprofiler.profiler.PacketRecorder;
-import dev.xkmc.packetprofiler.profiler.ReportGenerator;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.network.chat.Component;
@@ -32,6 +32,19 @@ public class ServerCommands {
 							.executes(LootDebugger::onStart));
 			event.getDispatcher().register(base);
 		}
+		{
+			LiteralArgumentBuilder<CommandSourceStack> base = Commands.literal("profiledatapack");
+			base.requires(e -> e.hasPermission(2)).executes(ctx -> {
+				var list = McFunctionFinder.findAll();
+				for (var e : list) {
+					ctx.getSource().sendSystemMessage(Component.literal(e));
+				}
+				ctx.getSource().sendSystemMessage(Component.literal("Total of " + list.size() + " datapacks with mcfunction found"));
+				return 1;
+			});
+			event.getDispatcher().register(base);
+		}
+
 	}
 
 	@SubscribeEvent
