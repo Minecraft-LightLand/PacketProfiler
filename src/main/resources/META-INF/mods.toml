@@ -1,25 +1,24 @@
-modLoader="javafml"
-loaderVersion="[40,)"
-license="LGPL v2.1"
-[[mods]]
-modId="packetprofiler"
-version="${file.jarVersion}" #mandatory
-displayName="Packet Profiler" #mandatory
-logoFile="packetprofiler.png" #optional
-credits="Thanks lcy0x1" #optional
-authors="lcy0x1 and LightLand team" #optional
-description='''
-A profiler mod that profide statistics on packet flow
-'''
-[[dependencies.packetprofiler]]
-    modId="forge"
-    mandatory=true
-    versionRange="[47.1.0,)"
-    ordering="NONE"
-    side="BOTH"
-[[dependencies.packetprofiler]]
-    modId="minecraft"
-    mandatory=true
-    versionRange="[1.20.1,1.20.2)"
-    ordering="NONE"
-    side="BOTH"
+modLoader = "javafml" #mandatory
+loaderVersion = "${loader_version_range}" #mandatory
+license = "${mod_license}"
+[[mods]] #mandatory
+modId = "${mod_id}" #mandatory
+version = "${mod_version}" #mandatory
+displayName = "${mod_name}" #mandatory
+authors = "${mod_authors}" #optional
+description = '''${mod_description}'''
+logoFile="logo.png"
+[[mixins]]
+config="${mod_id}.mixins.json"
+[[dependencies.${ mod_id }]] #optional
+modId = "neoforge" #mandatory
+type = "required" #mandatory
+versionRange = "${neo_version_range}" #mandatory
+ordering = "NONE"
+side = "BOTH"
+[[dependencies.${ mod_id }]]
+modId = "minecraft"
+type = "required"
+versionRange = "${minecraft_version_range}"
+ordering = "NONE"
+side = "BOTH"

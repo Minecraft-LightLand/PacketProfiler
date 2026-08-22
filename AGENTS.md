@@ -11,13 +11,10 @@ Minecraft Forge mod: PacketProfiler (`dev.xkmc.packetprofiler`, modid `packetpro
 
 ## Gotchas
 
-- `libs/` holds untracked local jars (gitignored `*.jar`) consumed via `flatDir` as `zip.local:convivium` / `zip.local:caupona` runtimeOnly deps. Without them, tasks resolving the runtime classpath (e.g. `runClient`) fail even though `build` compiles fine.
 - Every new mixin class must be added to `src/main/resources/packetprofiler.mixins.json` or it silently won't apply.
-- Mod version lives in `gradle.properties` (`ll_version` is reused as the project version).
-- `PacketProfiler.testPacket()` hardcodes `false`, disabling the automatic at-startup profiling path; profiling normally starts via in-game commands `/profileserver <ticks>`, `/profileloot <ticks>`, `/profiledatapack` (registered in `init/ServerCommands`).
+- NeoForge 1.21.1 source jars for reference (match `neo_version=21.1.197` in `gradle.properties`):
+  - NeoForge-only sources jar: `/Users/arthur/.gradle/caches/modules-2/files-2.1/net.neoforged/neoforge/21.1.197/2cf0f97aeae06308110f72191eecd54f00ff76be/neoforge-21.1.197-sources.jar`
+  - Merged decompiled Minecraft+NeoForge sources zip (what ModDevGradle attaches as IDE sources; use this to check vanilla MC classes too): `/Users/arthur/.gradle/caches/neoformruntime/intermediate_results/sourcesWithNeoForge_54246dd41c7976bb41b99cf423160341952a58e7_output.zip`
+  - These paths are hash-keyed Gradle cache entries and can disappear after cache cleanup or a `neo_version` bump; re-locate via `~/.gradle/caches/modules-2/files-2.1/net.neoforged/neoforge/<ver>/` and the `sourcesWithNeoForge_*` entries under `~/.gradle/caches/neoformruntime/intermediate_results/`.
 
 ## Structure
-
-- `init/`: `PacketProfiler` is the `@Mod` entrypoint; client-only setup in `PPClient`.
-- `mixin/`: hooks into `Connection`, `SimpleChannel`, and Forge internals to count packets; stats accumulate in `statmap/`.
-- `profiler/`: recorders (`PacketRecorder`, `SidedRecorder`, `LootDebugger`) and report generation; reports are written by `ReportGenerator` at tick-time expiry.
